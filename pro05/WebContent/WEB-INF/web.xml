@@ -10,6 +10,8 @@
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
   
+  <!-- 다수의 서블릿 매핑시 <servlet>은 servlet끼리, <servlet-mapping>은 servlet-mapping끼리 위치시킨다 -->
+  
   <!-- 브라우저에서 요청하는 매핑 이름에 대해 실제로 실행하는 서블릿 클래스를 설정하는 태그 -->
   <servlet>
   	<!-- <servlet-mapping>의 <servlet-name>태그와 값이 동일 -->
@@ -17,10 +19,19 @@
   	<!-- 브라우저에서 요청하는 매핑 이름에대해 실제로 기능을 수행하는 스빌릿 클래스를 설정 -->
   	<servlet-class>sec01.ex01.FirstServlet</servlet-class>
   </servlet>
+  <servlet>
+  <!-- <servlet-name>태그의 값은 절대 다른 <servlet-name>의 값과 같으면 안된다 -->
+  	<servlet-name>bbb</servlet-name>
+  	<servlet-class>sec01.ex01.SecondServlet</servlet-class>
+  </servlet>
   
   <servlet-mapping>
   	<servlet-name>aaa</servlet-name>
   	<!-- 브라우저에서 sec01.ex01.FirstServlet을 요청하는 논리적인 서블릿 이름 -->
   	<url-pattern>/first</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>bbb</servlet-name>
+  	<url-pattern>/second</url-pattern>
   </servlet-mapping>
 </web-app>
