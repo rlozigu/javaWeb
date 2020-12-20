@@ -37,6 +37,8 @@ public class MemberDAO {
 			String query = "SELECT * FROM T_MEMBER";
 			System.out.println("preparedStatement:" +query);
 			pstmt = con.prepareStatement(query);
+			//executeQuery() = 수행결과로 ResultSet객체의 값을 반환.
+			//select 구문을 수행할 때 사용되는 함수
 			ResultSet rs = pstmt.executeQuery();
 			while(rs.next()) {
 				String id = rs.getString("id");
@@ -74,16 +76,42 @@ public class MemberDAO {
 			System.out.println(query);
 			pstmt = con.prepareStatement(query);
 			
+			//?에 대응하는 값을 지정
 			pstmt.setString(1, vo.getId());
 			pstmt.setString(2, vo.getPwd());
 			pstmt.setString(3, vo.getName());
 			pstmt.setString(4, vo.getEmail());
 			
-			pstmt.executeQuery();
+			//수행결과로 int 타입 값을 반환
+			//select구문을 제외한 다른 구문을 수행할 때 사용되는 함수
+			//insert/delete/update 관련 구문에서는 반영된 레코드의 건수를 반환
+			//creat/drop구문에서는 -1을 반환
+			pstmt.executeUpdate();
 			pstmt.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
+	
+	public void delMember(String id) {
+		try {
+			//DataSource를 이용해 DB와 연결
+			con = dataFactory.getConnection();
+			
+			String query = "DELETE FROM T_MEMBER"
+					+ " WHERE ID = ?";
+			
+			System.out.println(query);
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, id);
+			
+			pstmt.executeUpdate();
+			pstmt.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+
 
 }

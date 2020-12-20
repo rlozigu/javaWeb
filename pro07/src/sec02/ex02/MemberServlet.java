@@ -44,6 +44,9 @@ public class MemberServlet extends HttpServlet{
 			vo.setName(_name);
 			vo.setEmail(_email);
 			dao.addMember(vo);
+		}else if(command != null && command.equals("delMember")) {
+			String id = req.getParameter("id");
+			dao.delMember(id);
 		}
 		
 		List<MemberVO> list = dao.listMembers();
@@ -74,6 +77,7 @@ public class MemberServlet extends HttpServlet{
 			out.print("<td>"+name+"</td>");
 			out.print("<td>"+email+"</td>");
 			out.print("<td>"+joinDate+"</td>");
+			//삭제 클릭시 command값과 id를 서블릿으로 전송
 			out.print("<td><a href ='/pro07/member4?command=delMember&id="+ id +"'>삭제</a></td>");
 			out.print("<tr>");
 		}
